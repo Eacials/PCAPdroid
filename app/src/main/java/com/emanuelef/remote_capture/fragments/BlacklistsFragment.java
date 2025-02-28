@@ -117,6 +117,21 @@ public class BlacklistsFragment extends Fragment implements BlacklistsStateListe
         return false;
     }
 
+    private void refreshStatusNew() {
+        if(mAdapter != null)
+            mAdapter.notifyDataSetChanged();
+
+        if(mUpdateItem != null) {
+            mUpdateItem.setVisible(CaptureService.isServiceActive());
+            mUpdateItem.setEnabled(!mBlacklists.isUpdateInProgress());
+        }
+
+        if(mUpdateItem != null) {
+            mUpdateItem.setVisible(CaptureService.isServiceActive());
+            mUpdateItem.setEnabled(!mBlacklists.isUpdateInProgress());
+        }
+    }
+
     private void refreshStatus() {
         if(mAdapter != null)
             mAdapter.notifyDataSetChanged();
