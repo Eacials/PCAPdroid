@@ -226,11 +226,6 @@ public class MitmAddon {
             if(msg.what == MitmAPI.MSG_GET_CA_CERTIFICATE) {
                 String ca_pem = null;
 
-                if(msg.getData() != null) {
-                    Bundle res = msg.getData();
-                    ca_pem = res.getString(MitmAPI.CERTIFICATE_RESULT);
-                }
-
                 receiver.onMitmGetCaCertificateResult(ca_pem);
             }
         }

@@ -231,6 +231,22 @@ public class CaptureService extends VpnService implements Runnable {
         }
     }
 
+    private boolean isAlwaysOnVpnDetectedNew() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            return isAlwaysOn();
+
+        try {
+            String always_on_vpn_app = Settings.Secure.getString(getContentResolver(), "always_on_vpn_app");
+            return always_on_vpn_app.equals(getPackageName());
+        } catch (Exception e) {
+            if (!alwaysOnVpnErrorLogged) {
+                Log.w(TAG, "Querying the always-on VPN state failed: " + e);
+                alwaysOnVpnErrorLogged = true;
+            }
+            return false;
+        }
+    }
+
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         mStopping = false;

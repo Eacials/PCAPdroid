@@ -172,14 +172,6 @@ public class ReversedLinesFileReader implements Closeable {
             final int dataLength = length + (leftOverOfLastFilePart != null ? leftOverOfLastFilePart.length : 0);
             this.data = new byte[dataLength];
             final long off = (no - 1) * blockSize;
-            // read data
-            if (no > 0 /* file not empty */) {
-                randomAccessFile.seek(off);
-                final int countRead = randomAccessFile.read(data, 0, length);
-                if (countRead != length) {
-                    throw new IllegalStateException("Count of requested bytes and actually read bytes don't match");
-                }
-            }
             // copy left over part into data arr
             if (leftOverOfLastFilePart != null) {
                 System.arraycopy(leftOverOfLastFilePart, 0, data, length, leftOverOfLastFilePart.length);

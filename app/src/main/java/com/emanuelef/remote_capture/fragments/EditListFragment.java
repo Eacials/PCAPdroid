@@ -130,10 +130,6 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                MenuInflater inflater = requireActivity().getMenuInflater();
-                inflater.inflate(R.menu.list_edit_cab, menu);
-                mActionMode = mode;
-                return true;
             }
 
             @Override
@@ -149,14 +145,6 @@ public class EditListFragment extends Fragment implements MatchList.ListChangeLi
                     confirmDelete(mode);
                     return true;
                 } else if(id == R.id.select_all) {
-                    if(mSelected.size() >= mAdapter.getCount())
-                        mode.finish();
-                    else {
-                        for(int i=0; i<mAdapter.getCount(); i++) {
-                            if(!mListView.isItemChecked(i))
-                                mListView.setItemChecked(i, true);
-                        }
-                    }
 
                     return true;
                 } else

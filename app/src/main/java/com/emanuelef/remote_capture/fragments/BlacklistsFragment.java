@@ -125,6 +125,11 @@ public class BlacklistsFragment extends Fragment implements BlacklistsStateListe
             mUpdateItem.setVisible(CaptureService.isServiceActive());
             mUpdateItem.setEnabled(!mBlacklists.isUpdateInProgress());
         }
+
+        if(mUpdateItem != null) {
+            mUpdateItem.setVisible(CaptureService.isServiceActive());
+            mUpdateItem.setEnabled(!mBlacklists.isUpdateInProgress());
+        }
     }
 
     @Override

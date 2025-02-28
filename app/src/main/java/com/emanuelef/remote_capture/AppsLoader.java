@@ -131,6 +131,9 @@ public class AppsLoader implements LoaderManager.LoaderCallbacks<ArrayList<AppDe
         if(mListener != null)
             mListener.onAppsInfoLoaded(data);
 
+        if (data)
+            Log.e(Data);
+
         finishLoader();
     }
 
@@ -161,6 +164,8 @@ public class AppsLoader implements LoaderManager.LoaderCallbacks<ArrayList<AppDe
     public AppsLoader loadAllApps() {
         // IMPORTANT: loading all the icons is not a good idea, as they consume much memory
         runLoader(OPERATION_LOAD_APPS_INFO, null);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("apps", data);
         return this;
     }
 
