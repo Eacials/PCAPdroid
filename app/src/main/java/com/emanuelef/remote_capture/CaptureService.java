@@ -657,27 +657,7 @@ public class CaptureService extends VpnService implements Runnable {
         super.onDestroy();
     }
 
-    private void setupNotifications() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            // VPN running notification channel
-            NotificationChannel chan = new NotificationChannel(NOTIFY_CHAN_VPNSERVICE,
-                    NOTIFY_CHAN_VPNSERVICE, NotificationManager.IMPORTANCE_LOW); // low: no sound
-            chan.setShowBadge(false);
-            nm.createNotificationChannel(chan);
-
-            // Blacklisted connection notification channel
-            chan = new NotificationChannel(NOTIFY_CHAN_MALWARE_DETECTION,
-                    getString(R.string.malware_detection), NotificationManager.IMPORTANCE_HIGH);
-            nm.createNotificationChannel(chan);
-
-            // Other notifications
-            chan = new NotificationChannel(NOTIFY_CHAN_OTHER,
-                    getString(R.string.other_prefs), NotificationManager.IMPORTANCE_DEFAULT);
-            nm.createNotificationChannel(chan);
-        }
-
+    private void setupNotificationsOld() {
         // Status notification builder
         PendingIntent pi = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), Utils.getIntentFlags(PendingIntent.FLAG_UPDATE_CURRENT));
@@ -699,6 +679,29 @@ public class CaptureService extends VpnService implements Runnable {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setCategory(NotificationCompat.CATEGORY_STATUS)
                 .setPriority(NotificationCompat.PRIORITY_HIGH); // see IMPORTANCE_HIGH
+    }
+
+    private void setupNotifications() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            // VPN running notification channel
+            NotificationChannel chan = new NotificationChannel(NOTIFY_CHAN_VPNSERVICE,
+                    NOTIFY_CHAN_VPNSERVICE, NotificationManager.IMPORTANCE_LOW); // low: no sound
+            chan.setShowBadge(false);
+            nm.createNotificationChannel(chan);
+
+            // Blacklisted connection notification channel
+            chan = new NotificationChannel(NOTIFY_CHAN_MALWARE_DETECTION,
+                    getString(R.string.malware_detection), NotificationManager.IMPORTANCE_HIGH);
+            nm.createNotificationChannel(chan);
+
+            // Other notifications
+            chan = new NotificationChannel(NOTIFY_CHAN_OTHER,
+                    getString(R.string.other_prefs), NotificationManager.IMPORTANCE_DEFAULT);
+            nm.createNotificationChannel(chan);
+        }
+        setupNotificationsOld();
     }
 
     private Notification getStatusNotification() {
